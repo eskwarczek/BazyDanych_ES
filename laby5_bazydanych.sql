@@ -113,8 +113,8 @@ VALUES
 --a Wyœwietl tylko id pracownika oraz jego nazwisko
 SELECT id_pracownika, nazwisko FROM ksiegowosc.pracownicy;
 --b Wyœwietl id pracowników, których p³aca jest wiêksza ni¿ 1000 
-SELECT pracownicy.id_pracownika, pensja.kwota -- dodatkowo wyœwietlam kwotê, bo akurat ¿aden pracownik nie zarabia mniej ni¿ 1000
-FROM ksiegowosc. pracownicy pracownicy
+SELECT pracownicy.id_pracownika
+FROM ksiegowosc.pracownicy pracownicy
 JOIN ksiegowosc.wynagrodzenie wynagrodzenie ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
 JOIN ksiegowosc.pensja pensja ON wynagrodzenie.id_pensji = pensja.id_pensji
 WHERE pensja.kwota > 1000;
@@ -124,7 +124,7 @@ FROM ksiegowosc.pracownicy pracownicy
 JOIN ksiegowosc.wynagrodzenie wynagrodzenie ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
 JOIN ksiegowosc.pensja pensja ON wynagrodzenie.id_pensji = pensja.id_pensji
 LEFT JOIN ksiegowosc.premia premia ON wynagrodzenie.id_premii = premia.id_premii
-WHERE premia.id_premii IS NULL AND pensja.kwota > 2000;
+WHERE premia.id_premii IS NOT NULL AND pensja.kwota > 2000;
 --WHERE premia.id_premii IS NOT NULL AND pensja.kwota > 4000; 
 --d Wyœwietl pracowników, których pierwsza litera imienia zaczyna siê na literê 'J'
 SELECT * FROM ksiegowosc.pracownicy WHERE imie LIKE 'J%';
@@ -136,13 +136,13 @@ FROM ksiegowosc.pracownicy pracownicy
 JOIN ksiegowosc.godziny godziny ON pracownicy.id_pracownika = godziny.id_pracownika
 GROUP BY pracownicy.imie, pracownicy.nazwisko
 HAVING SUM(godziny.liczba_godzin) > 160; -- dodany warunek sprawdzaj¹cy, czy nadgodziny s¹ dodatnie
---g Wyœwietl imiê i nazwisko pracowników, których pensja zawiera siê w przedziale 1500 – 3000 PLN.
+--g Wyœwietl imiê i nazwisko pracowników, których pensja zawiera siê w przedziale 1500 – 3000 
 SELECT p.imie, p.nazwisko
 FROM ksiegowosc.pracownicy p
 JOIN ksiegowosc.wynagrodzenie w ON p.id_pracownika = w.id_pracownika
 JOIN ksiegowosc.pensja s ON w.id_pensji = s.id_pensji
 WHERE s.kwota BETWEEN 1500 AND 3000;
---h Wyœwietl imiê i nazwisko pracowników, którzy pracowali w nadgodzinach i nie otrzymali premii.
+--h Wyœwietl imiê i nazwisko pracowników, którzy pracowali w nadgodzinach i nie otrzymali premii
 SELECT pracownicy.imie, pracownicy.nazwisko
 FROM ksiegowosc.pracownicy pracownicy
 JOIN ksiegowosc.wynagrodzenie wynagrodzenie ON pracownicy.id_pracownika = wynagrodzenie.id_pracownika
