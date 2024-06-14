@@ -216,7 +216,7 @@ INSERT INTO tabela_stratygraficzna.Pietra (ID_pietro, ID_epoka, NazwaPietro) VAL
 ('PIE94', 'EPOK28', 'Zanclean'),
 ('PIE95', 'EPOK28', 'Piacenzian');
 
--- Czwartorzêd
+-- CzwartorzÃªd
 INSERT INTO tabela_stratygraficzna.Pietra (ID_pietro, ID_epoka, NazwaPietro) VALUES
 ('PIE96', 'EPOK29', 'Gelasian'),
 ('PIE97', 'EPOK29', 'Calabrian'),
@@ -270,7 +270,7 @@ INNER JOIN
 INNER JOIN
     tabela_stratygraficzna.Eon eo ON er.ID_eon = eo.ID_eon;
 
--- Wyœwietlenie zawartoœci tabeli TabelaStra
+-- WyÂœwietlenie zawartoÂœci tabeli TabelaStra
 SELECT * FROM tabela_stratygraficzna.TabelaStraty;
 
 
@@ -346,7 +346,7 @@ WHERE
     (SELECT 
         CAST(RIGHT(p.ID_pietro, LEN(p.ID_pietro) - 3) AS INT) 
     FROM 
-        tabela_stratygraficzna.Pietra p
+        tabela_stratygraficzna.TabelaStraty t
     WHERE
         m.liczba % 95 = CAST(RIGHT(p.ID_pietro, LEN(p.ID_pietro) - 3) AS INT));
 
@@ -378,7 +378,7 @@ WHERE
     ON
         er.ID_eon = eo.ID_eon);
 
--- Dodawanie indeksów
+-- Dodawanie indeksÃ³w
 CREATE INDEX ix_eon_id_eon
 ON tabela_stratygraficzna.Eon(ID_eon);
 
@@ -424,7 +424,7 @@ ON tabela_stratygraficzna.TabelaStraty(ID_eonu);
 CREATE INDEX ix_milion_liczba
 ON liczby.milion(liczba);
 
--- Usuwanie indeksów
+-- Usuwanie indeksÃ³w
 DROP INDEX ix_eon_id_eon
 ON tabela_stratygraficzna.Eon;
 
